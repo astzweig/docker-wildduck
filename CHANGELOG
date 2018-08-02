@@ -1,0 +1,16 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog][keepachangelog],
+and this project adheres to [Semantic Versioning][semver].
+
+## [Unreleased]
+### New
+- Add a cute logo for the project (Huge thanks to the noun project at
+  this place).
+- License the project under the european union public license. See
+  [LICENSE][github-license] for more information on that.
+
+[keepachangelog]: https://keepachangelog.com/en/1.0.0/
+[semver]: https://semver.org/spec/v2.0.0.html
+[github-license]: https://github.com/astzweig/docker-wildduck/blob/master/LICENSE
