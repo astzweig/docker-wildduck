@@ -10,7 +10,10 @@ and this project adheres to [Semantic Versioning][semver].
   this place).
 - License the project under the european union public license. See
   [LICENSE][github-license] for more information on that.
+- Describe all possible environment variables in the
+  [README.md][readme] file.
 
 [keepachangelog]: https://keepachangelog.com/en/1.0.0/
 [semver]: https://semver.org/spec/v2.0.0.html
 [github-license]: https://github.com/astzweig/docker-wildduck/blob/master/LICENSE
+[readme]: https://github.com/astzweig/docker-wildduck
