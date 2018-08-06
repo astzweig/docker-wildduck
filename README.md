@@ -72,6 +72,14 @@ used, to configure the metadata of those configuration profiles.
   without extension. They will be moved into one of the system paths.
 - There is exactly one 'entrypoint.sh' script, that is the default
   command of the container.
+- The container needs three components to run (Wildduck, Haraka and
+  ZoneMTA). Each of those components has to be installed first, to be
+  configured in a second step and to be started in a third step. We
+  write one component script for each one of those components
+  containing a functions for two of the steps above: a
+  configure_{service} function and a start_{service} function. To make
+  use of Docker image layer caching we implement the install step of
+  each component in a single BUILD script.
 
 # Roadmap
 * Provide a docker container with the pre-installed services as done by
