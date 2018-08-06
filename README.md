@@ -59,6 +59,20 @@ used, to configure the metadata of those configuration profiles.
 | IMAP_RETENTION | The amount of days after which messages in Trash or Junk folder shall be deleted automatically. Default: 4 |
 | IMAP_DISABLE_STARTTLS | Disable or enable StartTTLS capability of the IMAP Server. Default: false |
 
+## Development Decisions
+- We will use shell scripts to run commands instead of writing
+  everything in the Dockerfile. We want the build-stage scripts to form
+  a sequence and thus we define a script naming scheme that contains an
+  ordering prefix of two digits.
+- Scripts that are not meant to be executed by their own start with an
+  underscore. They are not moved out of the scripts folder inside the
+  container and their execution bit is not set.
+- Scripts that are meant to be executables in the running container
+  will be in a sub-folder called 'bin'. They can have any name, with or
+  without extension. They will be moved into one of the system paths.
+- There is exactly one 'entrypoint.sh' script, that is the default
+  command of the container.
+
 # Roadmap
 * Provide a docker container with the pre-installed services as done by
   the [setup scripts][setup-scripts] provided by the
