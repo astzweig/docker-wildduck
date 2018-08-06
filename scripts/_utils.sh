@@ -52,6 +52,27 @@ _check_value () {
     fi
 }
 
+
+_is_dir_empty () {
+    # Check if a directory at a given path is empty.
+    # Run as:
+    # _is_dir_empty <PATH_TO_DIR>
+    #
+    # Returns:
+    #    - 0: If the directory is empty.
+    #    - 2: If the directory is not empty.
+    #    - 4: If the directory does not exist.
+    local DIR="${1}";
+    if [ ! -d "${DIR}" ]; then
+        return 4;
+    elif [ "$(ls -A "${DIR}" 2> /dev/null | wc -l)" -ne 0 ]; then
+        # Directory seems to contain elements => not empty.
+        return 2;
+    fi
+    return 0;
+}
+
+
 _get_random_string () {
     # Generate a random string of given length. Default length is 32.
     # Run as:
