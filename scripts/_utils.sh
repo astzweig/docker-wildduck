@@ -51,3 +51,11 @@ _check_value () {
         export ${VAR_NAME}="${DEFAULT_VALUE}";
     fi
 }
+
+_get_random_string () {
+    # Generate a random string of given length. Default length is 32.
+    # Run as:
+    # _get_random_string [<LENGTH>]
+    LEN="${1:-32}";
+    tr -dc _A-Z-a-z-0-9 < /dev/urandom | head -c"${LEN}";
+}
