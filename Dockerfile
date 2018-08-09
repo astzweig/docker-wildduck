@@ -16,6 +16,11 @@ ARG HARAKA_VERSION=2.8.21
 ARG HARAKA_WD_PLUGIN_GIT_REPO=https://github.com/nodemailer/haraka-plugin-wildduck.git
 ARG HARAKA_WD_PLUGIN_GIT_CID=master
 
+ARG ZONEMTA_GIT_REPO=https://github.com/zone-eu/zone-mta-template.git
+ARG ZONEMTA_GIT_CID=master
+ARG ZONEMTA_WD_PLUGIN_GIT_REPO=https://github.com/nodemailer/zonemta-wildduck.git
+ARG ZONEMTA_WD_PLUGIN_GIT_CID=master
+
 COPY ./scripts/[0-9][0-9]-*.sh ${SCRIPTS_DIR}/
 # Scripts are named like: {ORDER PREFIX}-{NAME}.sh.
 # Run files in sequence as induced by their order prefix (00-99).

@@ -44,6 +44,25 @@ install_haraka () {
 }
 
 
+install_zonemta () {
+    get_repo_at_cid "${ZONEMTA_GIT_REPO}" \
+                    "${ZONEMTA_INSTALL_DIR}" \
+                    "${ZONEMTA_GIT_CID}";
+
+    get_repo_at_cid "${ZONEMTA_WD_PLUGIN_GIT_REPO}" \
+                    "${ZONEMTA_INSTALL_DIR}/plugins/wildduck" \
+                    "${ZONEMTA_WD_PLUGIN_GIT_CID}";
+
+    cd "${ZONEMTA_INSTALL_DIR}";
+    npm install --unsafe-perm --production;
+
+    cd "${ZONEMTA_INSTALL_DIR}/plugins/wildduck";
+    npm install --unsafe-perm --production;
+    return 0;
+}
+
+
 mkdir -p "${INSTALL_DIR}";
 install_wildduck;
 install_haraka;
+install_zonemta;
