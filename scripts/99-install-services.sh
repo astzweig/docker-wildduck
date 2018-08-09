@@ -28,5 +28,22 @@ install_wildduck () {
 }
 
 
+install_haraka () {
+    npm install --unsafe-perm -g Haraka@"${HARAKA_VERSION}";
+    haraka -i "${HARAKA_INSTALL_DIR}";
+    cd "${HARAKA_INSTALL_DIR}";
+    npm install --unsafe-perm --save haraka-plugin-rspamd Haraka@"${HARAKA_VERSION}";
+
+    get_repo_at_cid "${HARAKA_WD_PLUGIN_GIT_REPO}" \
+                    "${HARAKA_INSTALL_DIR}/plugins/wildduck" \
+                    "${HARAKA_WD_PLUGIN_GIT_CID}";
+
+    cd "${HARAKA_INSTALL_DIR}/plugins/wildduck";
+    npm install --unsafe-perm --production;
+    return 0;
+}
+
+
 mkdir -p "${INSTALL_DIR}";
 install_wildduck;
+install_haraka;
