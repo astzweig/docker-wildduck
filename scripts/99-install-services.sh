@@ -14,3 +14,19 @@ get_repo_at_cid () {
     git checkout "${GIT_CID}";
     rm -fr .git;
 }
+
+
+install_wildduck () {
+    get_repo_at_cid "${WILDDUCK_GIT_REPO}" \
+                    "${WILDDUCK_INSTALL_DIR}" \
+                    "${WILDDUCK_GIT_CID}";
+
+    cd "${WILDDUCK_INSTALL_DIR}";
+    npm install --unsafe-perm --production;
+
+    return 0;
+}
+
+
+mkdir -p "${INSTALL_DIR}";
+install_wildduck;

@@ -9,6 +9,9 @@ LABEL org.label-schema.schema-version = "1.0"
 ARG INSTALL_DIR=/var/nodemailer
 ARG SCRIPTS_DIR=/root/scripts
 
+ARG WILDDUCK_GIT_REPO=https://github.com/nodemailer/wildduck.git
+ARG WILDDUCK_GIT_CID=master
+
 COPY ./scripts/[0-9][0-9]-*.sh ${SCRIPTS_DIR}/
 # Scripts are named like: {ORDER PREFIX}-{NAME}.sh.
 # Run files in sequence as induced by their order prefix (00-99).
