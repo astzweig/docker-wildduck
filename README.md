@@ -59,6 +59,23 @@ used, to configure the metadata of those configuration profiles.
 | IMAP_RETENTION | The amount of days after which messages in Trash or Junk folder shall be deleted automatically. Default: 4 |
 | IMAP_DISABLE_STARTTLS | Disable or enable StartTTLS capability of the IMAP Server. Default: false |
 
+### Build ARGS
+These variables can be used to define the service versions that are used
+in the container. They change only the build time behaviour.
+| Name | Meaning |
+| ---  | --- |
+| SCRIPTS_DIR | Path where the scripts folder is uploaded inside the container. Default: '/root/scripts' |
+| INSTALL_DIR | Path where the components (Wildduck, Haraka, etc.) will be installed inside the container. Default: '/var/nodemailer' |
+| WILDDUCK_GIT_REPO | The git repository URL of [Wildduck][github-wildduck] (or your fork of it). Default: 'https://github.com/nodemailer/wildduck.git' |
+| WILDDUCK_GIT_CID | The git commit ID or branch namer you want to checkout of the Wildduck git repository. Default: 'master' |
+| HARAKA_VERSION | The version of [Haraka][github-haraka] to download and use. Default: '2.8.21' |
+| HARAKA_WD_PLUGIN_GIT_REPO | The git repository URL of the [Wildduck plugin][github-haraka-wd-plugin] for [Haraka][github-haraka] (or your fork of it). Default: 'https://github.com/nodemailer/haraka-plugin-wildduck' |
+| HARAKA_WD_PLUGIN_GIT_CID | The git commit ID or branch name you want to checkout of the Wildduck plugin for Haraka git repository. Default: 'master' |
+| ZONEMTA_GIT_REPO | The git repository URL of [ZoneMTA][github-zonemta] (or your fork of it). Default: 'https://github.com/zone-eu/zone-mta-template.git' |
+| ZONEMTA_GIT_CID | The git commit ID or branch name you want to checkout of the ZoneMTA git repository. Default: 'master' |
+| ZONEMTA_WD_PLUGIN_GIT_REPO | The git repository URL of the [Wildduck plugin][github-zonemta-wd-plugin] for [ZoneMTA][github-zonemta] (or your fork of it). Default: 'https://github.com/nodemailer/zonemta-wildduck.git' |
+| ZONEMTA_WD_PLUGIN_GIT_CID | The git commit ID or branch name you want to checkout of the Wildduck plugin for ZoneMTA git repository. Default: 'master' |
+
 ## Development Decisions
 - We will use shell scripts to run commands instead of writing
   everything in the Dockerfile. We want the build-stage scripts to form
@@ -107,6 +124,10 @@ neither does any of them provide a useful documentation.
 [fqdn]: https://easyengine.io/tutorials/mail/fqdn-reverse-dns-ptr-mx-record-checks
 [apple-profile]: https://developer.apple.com/business/documentation/Configuration-Profile-Reference.pdf
 [wildduck_webmail_demo]: https://webmail.wildduck.email
+[github-haraka]: https://github.com/haraka/Haraka
+[github-haraka-wd-plugin]: https://github.com/nodemailer/haraka-plugin-wildduck
+[github-zonemta]: https://github.com/zone-eu/zone-mta-template
+[github-zonemta-wd-plugin]: https://github.com/nodemailer/zonemta-wildduck
 [setup-scripts]: https://github.com/nodemailer/wildduck/tree/master/setup
 [dockerhub-houlagins]: https://hub.docker.com/r/houlagins/wildduck/
 [dockerhub-hechengjin]: https://hub.docker.com/r/hechengjin/mailserver/
