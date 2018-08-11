@@ -19,4 +19,16 @@ init_runtime_env_variables () {
         sed -e 's,.*://,,' -e 's,^\([^:/]\+\)[:/].*,\1,')";
     _check_value 'REDIS_DB' '.\+' "$(echo "${REDIS_HOST}" | \
         sed -e 's,.*/,,')";
+
+    _init_api_env_variables;
+}
+
+
+_init_api_env_variables () {
+    local PROTO='http';
+    _check_value 'API_ENABLE' 'true\|false' 'true';
+    _check_value 'API_USE_HTTPS' 'true\|false' 'true';
+    [ "${API_USE_HTTPS}" = 'true' ] && PROTO="${PROTO}s";
+    _check_value 'API_URL' '.\+' "${PROTO}://${FQDN}";
+    _check_value 'API_TOKEN_SECRET' '.\+' "$(_get_random_string)";
 }
