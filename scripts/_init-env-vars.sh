@@ -22,6 +22,7 @@ init_runtime_env_variables () {
 
     _init_api_env_variables;
     _init_configprofile_env_variables;
+    _init_imap_env_variables;
 }
 
 
@@ -46,4 +47,11 @@ _init_configprofile_env_variables () {
     _check_value 'CONFIGPROFILE_DISPLAY_DESC' '.\+' \
         'Install this profile to setup {email}';
     _check_value 'CONFIGPROFILE_ACCOUNT_DESC' '.\+' '{email}';
+}
+
+
+_init_imap_env_variables () {
+    _check_value 'IMAP_PROCESSES' '[[:digit:]]\+$' '2';
+    _check_value 'IMAP_RETENTION' '[[:digit:]]\+$' '4';
+    _check_value 'IMAP_DISABLE_STARTTLS' 'true\|false' 'false';
 }
