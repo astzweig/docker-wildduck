@@ -13,12 +13,11 @@ init_runtime_env_variables () {
 
     # Split REDIS_HOST into components as we need the components in the
     # configuration files.
-    _check_value 'REDIS_PORT' '.\+' "$(echo "${REDIS_HOST}" | \
+    export REDIS_PORT="$(echo "${REDIS_HOST}" | \
         sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')";
-    _check_value 'REDIS_HOSTNAME' '.\+' "$(echo "${REDIS_HOST}" | \
+    export REDIS_HOSTNAME="$(echo "${REDIS_HOST}" | \
         sed -e 's,.*://,,' -e 's,^\([^:/]\+\)[:/].*,\1,')";
-    _check_value 'REDIS_DB' '.\+' "$(echo "${REDIS_HOST}" | \
-        sed -e 's,.*/,,')";
+    export REDIS_DB="$(echo "${REDIS_HOST}" | sed -e 's,.*/,,')";
 
     _init_api_env_variables;
     _init_configprofile_env_variables;
