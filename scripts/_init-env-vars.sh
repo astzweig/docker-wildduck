@@ -21,6 +21,7 @@ init_runtime_env_variables () {
         sed -e 's,.*/,,')";
 
     _init_api_env_variables;
+    _init_configprofile_env_variables;
 }
 
 
@@ -31,4 +32,18 @@ _init_api_env_variables () {
     [ "${API_USE_HTTPS}" = 'true' ] && PROTO="${PROTO}s";
     _check_value 'API_URL' '.\+' "${PROTO}://${FQDN}";
     _check_value 'API_TOKEN_SECRET' '.\+' "$(_get_random_string)";
+}
+
+
+_init_configprofile_env_variables () {
+    # default identifier for mobilconfig is the first two parts of the
+    # reversed FQDN with '.wildduck' appended.
+    local REV_FQDN="$(echo $FQDN | \
+        awk '{n = split($0,v,"."); print v[n]"."v[n-1]}').wildduck";
+    _check_value 'CONFIGPROFILE_ID' '.\+' "${REV_FQDN}";
+    _check_value 'CONFIGPROFILE_DISPLAY_NAME' '.\+' "${PRODUCT_NAME}";
+    _check_value 'CONFIGPROFILE_DISPLAY_ORGANIZATION' '.\+' 'Unknown';
+    _check_value 'CONFIGPROFILE_DISPLAY_DESC' '.\+' \
+        'Install this profile to setup {email}';
+    _check_value 'CONFIGPROFILE_ACCOUNT_DESC' '.\+' '{email}';
 }
