@@ -1,6 +1,21 @@
 #!/bin/sh
 
 init_runtime_env_variables () {
+
+    _init_general_env_vars;
+    _init_api_env_vars;
+    _init_configprofile_env_vars;
+    _init_imap_env_vars;
+    _init_calculated_vars;
+}
+
+
+_init_calculated_vars () {
+    _init_redis_calc_vars;
+}
+
+
+_init_general_env_vars () {
     # Simple (too general) domain recognizing regular expression.
     local _DOMAIN_REGEX='[^[:space:]]\{1,63\}\.\+[^[:space:].]\+$';
     _check_value 'FQDN' "${_DOMAIN_REGEX}" 'exit';
@@ -10,22 +25,10 @@ init_runtime_env_variables () {
     _check_value 'TLS_CERT' '\.+' '/etc/tls-keys/fullchain.pem';
     _check_value 'MONGODB_HOST' '.\+' 'mongodb://mongodb:27017/wildduck';
     _check_value 'REDIS_HOST' '.\+' 'redis://redis:6379/8';
-
-    # Split REDIS_HOST into components as we need the components in the
-    # configuration files.
-    export REDIS_PORT="$(echo "${REDIS_HOST}" | \
-        sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')";
-    export REDIS_HOSTNAME="$(echo "${REDIS_HOST}" | \
-        sed -e 's,.*://,,' -e 's,^\([^:/]\+\)[:/].*,\1,')";
-    export REDIS_DB="$(echo "${REDIS_HOST}" | sed -e 's,.*/,,')";
-
-    _init_api_env_variables;
-    _init_configprofile_env_variables;
-    _init_imap_env_variables;
 }
 
 
-_init_api_env_variables () {
+_init_api_env_vars () {
     local PROTO='http';
     _check_value 'API_ENABLE' 'true\|false' 'true';
     _check_value 'API_USE_HTTPS' 'true\|false' 'true';
@@ -35,7 +38,7 @@ _init_api_env_variables () {
 }
 
 
-_init_configprofile_env_variables () {
+_init_configprofile_env_vars () {
     # default identifier for mobilconfig is the first two parts of the
     # reversed FQDN with '.wildduck' appended.
     local REV_FQDN="$(echo $FQDN | \
@@ -49,8 +52,19 @@ _init_configprofile_env_variables () {
 }
 
 
-_init_imap_env_variables () {
+_init_imap_env_vars () {
     _check_value 'IMAP_PROCESSES' '[[:digit:]]\+$' '2';
     _check_value 'IMAP_RETENTION' '[[:digit:]]\+$' '4';
     _check_value 'IMAP_DISABLE_STARTTLS' 'true\|false' 'false';
+}
+
+
+_init_redis_calc_vars () {
+    # Split REDIS_HOST into components as we need the components in the
+    # configuration files.
+    export REDIS_PORT="$(echo "${REDIS_HOST}" | \
+        sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')";
+    export REDIS_HOSTNAME="$(echo "${REDIS_HOST}" | \
+        sed -e 's,.*://,,' -e 's,^\([^:/]\+\)[:/].*,\1,')";
+    export REDIS_DB="$(echo "${REDIS_HOST}" | sed -e 's,.*/,,')";
 }
