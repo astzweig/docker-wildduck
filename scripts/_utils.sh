@@ -80,3 +80,26 @@ _get_random_string () {
     LEN="${1:-32}";
     tr -dc _A-Z-a-z-0-9 < /dev/urandom | head -c"${LEN}";
 }
+
+
+_get_url_part () {
+    # Parse and echo the specified part of an URL.
+    # Run as:
+    # _get_url_part <URL> <part>
+    #
+    # Args:
+    #   URL: the url of which the part shall be parsed of.
+    #   part: Any of 'hostname', 'port' or 'path'. 'path' returns the
+    #         URL path without the first slash.
+    local URL="${1}" PART="${2}";
+    if [ "${PART}" = 'hostname' ]; then
+        echo "${URL}" | sed -e 's,^.*:,:,g' \
+                            -e 's,.*:\([0-9]*\).*,\1,g' \
+                            -e 's,[^0-9],,g';
+    elif [ "${PART}" = 'port' ]; then
+        echo "${URL}" | sed -e 's,.*://,,' \
+                            -e 's,^\([^:/]\+\)[:/].*,\1,';
+    elif [ "${PART}" = 'path' ]; then
+        echo "${URL}" |sed -e 's,.*/,,';
+    fi
+}
