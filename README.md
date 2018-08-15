@@ -20,8 +20,8 @@ individually for each email account.
 | **FQDN** | The fully qualified domain name of your docker host server. It is important that you understand what a [FQDN][fqdn] is. |
 | MAIL_DOMAIN | The first domain you want Wildduck to receive emails for. This will also be the standard Domain when you create users and do not supply a domain name. Default: The value you supplied at FQDN |
 | PRODUCT_NAME | A name that will be used to advertise the email service on communication with third parties e.g. in SMTP HELO. Default: Wildduck Mail |
-| TLS_KEY | The in-container path to the private SSL key to use for all Wildduck services. If no value is provided, SSL (IMAPS, SMTPS, etc.) will be disabled. Default: /etc/tls-keys/privkey.pem |
-| TLS_CERT | The path to the public full chain SSL key to use for all Wildduck services. Default: /etc/tls-keys/fullchain.pem |
+| TLS_KEY | The in-container path to the private SSL key to use for all Wildduck services. If no value is provided, SSL (IMAPS, SMTPS, etc.) will be disabled. |
+| TLS_CERT | The path to the public full chain SSL key to use for all Wildduck services. |
 | REDIS_HOST | The connection URL of redis. Default: redis://redis:6379/8 |
 | MONGODB_HOST | The connection URL of mongodb. Default: mongodb://mongodb:27017/wildduck |
 | GRAYLOG_HOSTNAME | The hostname or IP address of graylog server. If set logging to graylog will be enabled. |

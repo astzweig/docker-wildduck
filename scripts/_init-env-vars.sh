@@ -21,10 +21,11 @@ _init_general_env_vars () {
     _check_value 'FQDN' "${_DOMAIN_REGEX}" 'exit';
     _check_value 'MAIL_DOMAIN' "${_DOMAIN_REGEX}" "${FQDN}";
     _check_value 'PRODUCT_NAME' '.\+' 'Wildduck Mail';
-    _check_value 'TLS_KEY' '\.+' '/etc/tls-keys/privkey.pem';
-    _check_value 'TLS_CERT' '\.+' '/etc/tls-keys/fullchain.pem';
     _check_value 'MONGODB_HOST' '.\+' 'mongodb://mongodb:27017/wildduck';
     _check_value 'REDIS_HOST' '.\+' 'redis://redis:6379/8';
+
+    export TLS_KEY="${TLS_KEY}";
+    export TLS_CERT="${TLS_CERT}";
 }
 
 
