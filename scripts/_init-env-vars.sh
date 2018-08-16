@@ -65,13 +65,14 @@ _init_imap_env_vars () {
 _init_redis_calc_vars () {
     # Split REDIS_HOST into components as we need the components in the
     # configuration files.
-    export REDIS_PORT="$(_get_url_part "${REDIS_HOST}" port)";
-    export REDIS_HOSTNAME="$(_get_url_part "${REDIS_HOST}" hostname)";
-    export REDIS_DB="$(_get_url_part "${REDIS_HOST}" path)";
+    export _REDIS_PORT="$(_get_url_part "${REDIS_HOST}" port)";
+    export _REDIS_HOSTNAME="$(_get_url_part "${REDIS_HOST}" hostname)";
+    export _REDIS_DB="$(_get_url_part "${REDIS_HOST}" path)";
 }
 
 
 _init_graylog_calc_vars () {
-    export GRAYLOG_PORT="$(_get_url_part "${GRAYLOG_HOST_PORT}" port)";
-    export GRAYLOG_HOSTNAME="$(_get_url_part "${GRAYLOG_HOST_PORT}" hostname)";
+    export _GRAYLOG_PORT="$(_get_url_part "${GRAYLOG_HOST_PORT}" port)";
+    export _GRAYLOG_HOSTNAME="$(_get_url_part "${GRAYLOG_HOST_PORT}" \
+        hostname)";
 }
