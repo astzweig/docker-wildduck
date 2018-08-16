@@ -12,6 +12,7 @@ init_runtime_env_variables () {
 
 _init_calculated_vars () {
     _init_redis_calc_vars;
+    _init_graylog_calc_vars;
 }
 
 
@@ -26,6 +27,7 @@ _init_general_env_vars () {
 
     export TLS_KEY="${TLS_KEY}";
     export TLS_CERT="${TLS_CERT}";
+    export GRAYLOG_HOST_PORT="${GRAYLOG_HOST_PORT}";
 }
 
 
@@ -63,9 +65,13 @@ _init_imap_env_vars () {
 _init_redis_calc_vars () {
     # Split REDIS_HOST into components as we need the components in the
     # configuration files.
-    export REDIS_PORT="$(echo "${REDIS_HOST}" | \
-        sed -e 's,^.*:,:,g' -e 's,.*:\([0-9]*\).*,\1,g' -e 's,[^0-9],,g')";
-    export REDIS_HOSTNAME="$(echo "${REDIS_HOST}" | \
-        sed -e 's,.*://,,' -e 's,^\([^:/]\+\)[:/].*,\1,')";
-    export REDIS_DB="$(echo "${REDIS_HOST}" | sed -e 's,.*/,,')";
+    export REDIS_PORT="$(_get_url_part "${REDIS_HOST}" port)";
+    export REDIS_HOSTNAME="$(_get_url_part "${REDIS_HOST}" hostname)";
+    export REDIS_DB="$(_get_url_part "${REDIS_HOST}" path)";
+}
+
+
+_init_graylog_calc_vars () {
+    export GRAYLOG_PORT="$(_get_url_part "${GRAYLOG_HOST_PORT}" port)";
+    export GRAYLOG_HOSTNAME="$(_get_url_part "${GRAYLOG_HOST_PORT}" hostname)";
 }

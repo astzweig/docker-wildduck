@@ -24,7 +24,7 @@ individually for each email account.
 | TLS_CERT | The path to the public full chain SSL key to use for all Wildduck services. |
 | REDIS_HOST | The connection URL of redis. Default: redis://redis:6379/8 |
 | MONGODB_HOST | The connection URL of mongodb. Default: mongodb://mongodb:27017/wildduck |
-| GRAYLOG_HOSTNAME | The hostname or IP address of graylog server. If set logging to graylog will be enabled. |
+| GRAYLOG_HOST_PORT | The hostname (or IP address) and port of the graylog server, e.g. graylog:12201. If set logging to graylog will be enabled. |
 
 ### Wildduck API
 | Name | Meaning |
