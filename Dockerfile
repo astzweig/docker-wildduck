@@ -32,7 +32,7 @@ RUN for file in ${SCRIPTS_DIR}/[0-9][0-9]-*.sh; do \
 COPY ./scripts/[^0-9]*.sh ${SCRIPTS_DIR}/
 COPY ./scripts/bin /usr/local/bin
 RUN apk add --no-cache dumb-init; \
-    chmod +x ${SCRIPTS_DIR}/entrypoint.sh \
+    chmod +x ${SCRIPTS_DIR}/entrypoint.sh; \
     chmod +x /usr/local/bin/*;
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
