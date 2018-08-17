@@ -73,6 +73,29 @@ _is_dir_empty () {
 }
 
 
+_create_dir_if_empty () {
+    # Create a directory at the specified path. Return an error if the
+    # directory cannot be created or there is already a directory that
+    # contains elements.
+    # Run as:
+    # _create_dir_if_empty <PATH_FOR_DIR>
+    #
+    # Returns:
+    #   - 0: If the directory was created successfully or exists
+    #        already, but is empty.
+    #   - 1: If the directory exists already, but is not empty.
+    local DIR="${1}" RET;
+    _is_dir_empty "${DIR}";
+    RET=$?;
+    if [ "${RET}" -eq 4 ]; then
+        mkdir -p "${DIR}";
+    elif [ "${RET}" -eq 2 ]; then
+        return 1;
+    fi
+    return 0;
+}
+
+
 _get_random_string () {
     # Generate a random string of given length. Default length is 32.
     # Run as:
