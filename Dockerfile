@@ -8,6 +8,8 @@ LABEL org.label-schema.schema-version = "1.0"
 # Info: If changed, please also change the variables in the next stage
 ARG INSTALL_DIR=/var/nodemailer
 ARG SCRIPTS_DIR=/root/scripts
+ENV INSTALL_DIR ${INSTALL_DIR}
+ENV SCRIPTS_DIR ${SCRIPTS_DIR}
 
 ARG WILDDUCK_GIT_REPO=https://github.com/nodemailer/wildduck.git
 ARG WILDDUCK_GIT_CID=master
