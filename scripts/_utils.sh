@@ -115,14 +115,14 @@ _get_url_part () {
     #   part: Any of 'hostname', 'port' or 'path'. 'path' returns the
     #         URL path without the first slash.
     local URL="${1}" PART="${2}";
-    if [ "${PART}" = 'hostname' ]; then
+    if [ "${PART}" = 'port' ]; then
         echo "${URL}" | sed -e 's,^.*:,:,g' \
                             -e 's,.*:\([0-9]*\).*,\1,g' \
                             -e 's,[^0-9],,g';
-    elif [ "${PART}" = 'port' ]; then
+    elif [ "${PART}" = 'hostname' ]; then
         echo "${URL}" | sed -e 's,.*://,,' \
-                            -e 's,^\([^:/]\+\)[:/].*,\1,';
+                            -e 's,^\([^:/]\+\)[:/]\?.*,\1,';
     elif [ "${PART}" = 'path' ]; then
-        echo "${URL}" |sed -e 's,.*/,,';
+        echo "${URL}" |sed -e 's,[^:/]*\(://\)\?[^/]*/\(.*\),\2,';
     fi
 }
