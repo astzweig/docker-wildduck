@@ -24,20 +24,37 @@ init_runtime_env_variables () {
     # === General ===
     export TLS_KEY="${TLS_KEY}";
     export TLS_CERT="${TLS_CERT}";
+    export _USE_SSL='false';
+    [ -n "${TLS_KEY}" -a -n "${TLS_CERT}" ] && export _USE_SSL='true';
 
     # === General: Graylog ===
     export GRAYLOG_HOST_PORT="${GRAYLOG_HOST_PORT}";
     export _GRAYLOG_PORT="$(_get_url_part "${GRAYLOG_HOST_PORT}" port)";
     export _GRAYLOG_HOSTNAME="$(_get_url_part "${GRAYLOG_HOST_PORT}" \
         hostname)";
+    export _GRAYLOG_ENABLE='false';
+    if [ -n "${_GRAYLOG_HOSTNAME}" -a -n "${_GRAYLOG_PORT}" ]; then
+        export _GRAYLOG_ENABLE='true';
+    fi
+
 
     # === API ===
     local PROTO='http';
     _check_value 'API_ENABLE' 'true\|false' 'true';
     _check_value 'API_USE_HTTPS' 'true\|false' 'true';
-    [ "${API_USE_HTTPS}" = 'true' ] && PROTO="${PROTO}s";
+    _check_value 'API_TOKEN_SECRET' '.\+' '';
+
+    export _API_ACCESS_CONTROL_ENABLE='false';
+    export _API_ACCESS_CONTROL_SECRET="$(_get_random_string)";
+    [ -n "${API_TOKEN_SECRET}" ] && export _API_ACCESS_CONTROL_ENABLE='true';
+
+    export _API_PORT=80;
+    if [ "${API_USE_HTTPS}" = 'true' -a "${_USE_SSL}" = 'true' ]; then
+        PROTO="${PROTO}s";
+        export _API_PORT=443;
+    fi
+
     _check_value 'API_URL' '.\+' "${PROTO}://${FQDN}";
-    _check_value 'API_TOKEN_SECRET' '.\+' "$(_get_random_string)";
 
 
     # === Configprofile ===
@@ -53,8 +70,25 @@ init_runtime_env_variables () {
     _check_value 'CONFIGPROFILE_ACCOUNT_DESC' '.\+' '{email}';
 
 
+    # === dir vars ===
+    # These variables do not have an underscore prefix, though they are
+    # 'calculated'. This is to keep path variables consistent across
+    # the whole code base.
+    export WILDDUCK_CONFIG_DIR='/etc/nodemailer/wildduck';
+
+
     # === IMAP ===
     _check_value 'IMAP_PROCESSES' '[[:digit:]]\+$' '2';
     _check_value 'IMAP_RETENTION' '[[:digit:]]\+$' '4';
     _check_value 'IMAP_DISABLE_STARTTLS' 'true\|false' 'false';
+    export _IMAP_PORT=143;
+    [ "${_USE_SSL}" = 'true' ] && export _IMAP_PORT=993;
+
+
+    # === Misc ===
+    export _COCOF_ADD='{"op": "add", "path": "%s", "value": %s}';
+    export _TOTP_SECRET="$(_get_random_string)";
+    export _DKIM_SECRET="$(_get_random_string)";
+    export _SMTP_PORT='587';
+    [ "${_USE_SSL}" = 'true' ] && export SMTP_PORT='465';
 }
