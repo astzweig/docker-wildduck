@@ -25,13 +25,14 @@ individually for each email account.
 | REDIS_HOST | The connection URL of redis. Default: redis://redis:6379/8 |
 | MONGODB_HOST | The connection URL of mongodb. Default: mongodb://mongodb:27017/wildduck |
 | GRAYLOG_HOST_PORT | The hostname (or IP address) and port of the graylog server, e.g. graylog:12201. If set logging to graylog will be enabled. |
+| ENABLE_STARTTLS | Enable StartTTLS capability of the IMAP and SMTP Server. Default: false |
 
 ### Wildduck API
 | Name | Meaning |
 | --- | --- |
-| API_ENABLE | Enable or disable the Wildduck API. Default: true |
-| API_USE_HTTPS | Enable or disable SSL for the API. Usually you want to disable it, if you use a reverse proxy. Default: false |
-| API_URL | The URL at which the API is available from outside docker. E.g. 'https://example.com/api'. Default: https://$FQDN:443 if API_USE_HTTPS is set to true else http://$FQDN:80 |
+| API_ENABLE | Enable the Wildduck API. Default: true |
+| API_USE_HTTPS | Enable SSL for the API. Usually you want to disable it, if you use a reverse proxy. Default: false |
+| API_URL | The URL at which the API is available from outside docker. E.g. 'https://example.com/api'. Default: https://$FQDN:443 if API_USE_HTTPS is set to true and TLS_* variables are provided else http://$FQDN:80 |
 | API_TOKEN_SECRET | The token that the API will require to accept a call (given either through an HTTP header (X-ACCESS-TOKEN) or as a URL parameter (?accessToken=...). Leaving this variable empty or not defining it is a possible dangerous step, as anyone will be able to make API calls (and as such create users, etc.). This option should only be left empty by users who know what they are doing. |
 
 #### API Configuration Profile
@@ -57,7 +58,6 @@ used, to configure the metadata of those configuration profiles.
 | --- | --- |
 | IMAP_PROCESSES | The number of IMAP processes to start. Default: 2 |
 | IMAP_RETENTION | The amount of days after which messages in Trash or Junk folder shall be deleted automatically. Default: 4 |
-| IMAP_DISABLE_STARTTLS | Disable or enable StartTTLS capability of the IMAP Server. Default: false |
 
 ### Build ARGS
 These variables can be used to define the service versions that are used

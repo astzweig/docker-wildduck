@@ -26,6 +26,10 @@ init_runtime_env_variables () {
     export TLS_CERT="${TLS_CERT}";
     export _USE_SSL='false';
     [ -n "${TLS_KEY}" -a -n "${TLS_CERT}" ] && export _USE_SSL='true';
+    _check_value 'ENABLE_STARTTLS' 'true\|false' 'false';
+    if [ "${ENABLE_STARTTLS}" = 'true' -a "${_USE_SSL}" = 'false' ]; then
+        export ENABLE_STARTTLS='false';
+    fi
 
     # === General: Graylog ===
     export GRAYLOG_HOST_PORT="${GRAYLOG_HOST_PORT}";
@@ -82,9 +86,14 @@ init_runtime_env_variables () {
     # === IMAP ===
     _check_value 'IMAP_PROCESSES' '[[:digit:]]\+$' '2';
     _check_value 'IMAP_RETENTION' '[[:digit:]]\+$' '4';
-    _check_value 'IMAP_DISABLE_STARTTLS' 'true\|false' 'false';
+    export _IMAP_DISABLE_STARTTLS='true';
     export _IMAP_PORT=143;
-    [ "${_USE_SSL}" = 'true' ] && export _IMAP_PORT=993;
+    if [ "${_USE_SSL}" = 'true' ]; then
+        export _IMAP_PORT=993;
+        if [ "${ENABLE_STARTTLS}" = 'true' ]; then
+            export _IMAP_DISABLE_STARTTLS='false';
+        fi
+    fi
 
 
     # === Misc ===
