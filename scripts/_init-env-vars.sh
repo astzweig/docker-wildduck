@@ -74,7 +74,9 @@ init_runtime_env_variables () {
     # These variables do not have an underscore prefix, though they are
     # 'calculated'. This is to keep path variables consistent across
     # the whole code base.
-    export WILDDUCK_CONFIG_DIR='/etc/nodemailer/wildduck';
+    export CONFIG_DIR='/etc/nodemailer';
+    export WILDDUCK_CONFIG_DIR="${CONFIG_DIR}/wildduck";
+    export HARAKA_CONFIG_DIR="${CONFIG_DIR}/haraka";
 
 
     # === IMAP ===
@@ -88,6 +90,7 @@ init_runtime_env_variables () {
     # === Misc ===
     export _COCOF_ADD='{"op": "add", "path": "%s", "value": %s}';
     export _TOTP_SECRET="$(_get_random_string)";
+    export _SRS_SECRET="$(_get_random_string)";
     export _DKIM_SECRET="$(_get_random_string)";
     export _SMTP_PORT='587';
     [ "${_USE_SSL}" = 'true' ] && export SMTP_PORT='465';

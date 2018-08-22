@@ -33,6 +33,7 @@ install_haraka () {
     haraka -i "${HARAKA_INSTALL_DIR}";
     cd "${HARAKA_INSTALL_DIR}";
     npm install --unsafe-perm --save haraka-plugin-rspamd Haraka@"${HARAKA_VERSION}";
+    mkdir -p "${HARAKA_INSTALL_DIR}/queue";
 
     get_repo_at_cid "${HARAKA_WD_PLUGIN_GIT_REPO}" \
                     "${HARAKA_INSTALL_DIR}/plugins/wildduck" \
