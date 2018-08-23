@@ -81,6 +81,7 @@ init_runtime_env_variables () {
     export CONFIG_DIR='/etc/nodemailer';
     export WILDDUCK_CONFIG_DIR="${CONFIG_DIR}/wildduck";
     export HARAKA_CONFIG_DIR="${CONFIG_DIR}/haraka";
+    export ZONEMTA_CONFIG_DIR="${CONFIG_DIR}/zonemta";
 
 
     # === IMAP ===
@@ -94,6 +95,12 @@ init_runtime_env_variables () {
             export _IMAP_DISABLE_STARTTLS='false';
         fi
     fi
+
+
+    # === Outbound SMTP ===
+    export _OUTBOUND_SMTP_PORT=587;
+    export _OUTBOUND_SMTP_SECRET="$(_get_random_string)";
+    [ "${_USE_SSL}" = 'true' ] && export _OUTBOUND_SMTP_PORT=465;
 
 
     # === Misc ===
