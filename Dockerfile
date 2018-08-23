@@ -4,6 +4,7 @@ LABEL org.label-schema.version = "1.0.0"
 LABEL org.label-schema.description = "A docker container to run nodemailer/wildduck mailserver."
 LABEL org.label-schema.vcs-url = "https://github.com/astzweig/docker-wildduck"
 LABEL org.label-schema.schema-version = "1.0"
+RUN apk add --no-cache dumb-init;
 
 # Info: If changed, please also change the variables in the next stage
 ARG INSTALL_DIR=/var/nodemailer
@@ -33,8 +34,7 @@ RUN for file in ${SCRIPTS_DIR}/[0-9][0-9]-*.sh; do \
 
 COPY ./scripts/[^0-9]*.sh ${SCRIPTS_DIR}/
 COPY ./scripts/bin /usr/local/bin
-RUN apk add --no-cache dumb-init; \
-    chmod +x ${SCRIPTS_DIR}/entrypoint.sh; \
+RUN chmod +x ${SCRIPTS_DIR}/entrypoint.sh; \
     chmod +x /usr/local/bin/*;
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
