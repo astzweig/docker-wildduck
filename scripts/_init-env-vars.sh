@@ -82,6 +82,7 @@ init_runtime_env_variables () {
     export WILDDUCK_CONFIG_DIR="${CONFIG_DIR}/wildduck";
     export HARAKA_CONFIG_DIR="${CONFIG_DIR}/haraka";
     export ZONEMTA_CONFIG_DIR="${CONFIG_DIR}/zonemta";
+    export CLAMD_DATABSE_DIR="${CONFIG_DIR}/clamdb";
 
 
     # === IMAP ===

@@ -6,12 +6,18 @@ source "${SCRIPTS_DIR}/_init-env-vars.sh";
 source "${SCRIPTS_DIR}/_wildduck.sh";
 source "${SCRIPTS_DIR}/_haraka.sh";
 source "${SCRIPTS_DIR}/_zonemta.sh";
+source "${SCRIPTS_DIR}/_antispam.sh";
 
 main () {
+    # === Configure ===
     init_runtime_env_variables;
     configure_wildduck;
     configure_haraka;
     configure_zonemta;
+    configure_antispam;
+
+    # === Start ===
+    start_antispam;
 
     start_wildduck &
     local WILDDUCK_PID=$!;
