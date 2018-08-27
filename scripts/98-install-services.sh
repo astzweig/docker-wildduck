@@ -59,6 +59,10 @@ install_zonemta () {
 
     cd "${ZONEMTA_INSTALL_DIR}/plugins/wildduck";
     npm install --unsafe-perm --production;
+
+    # Remove example plugins.
+    rm -r "${ZONEMTA_INSTALL_DIR}/plugins"/*.js;
+    rm -r "${ZONEMTA_INSTALL_DIR}"/config/plugins/example-*;
     return 0;
 }
 
