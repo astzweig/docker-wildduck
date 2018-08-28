@@ -8,6 +8,7 @@ _zonemta_configure_interface () {
     $(printf "${_COCOF_ADD}" /feeder/processes 2),
     $(printf "${_COCOF_ADD}" /feeder/port ${_OUTBOUND_SMTP_PORT}),
     $(printf "${_COCOF_ADD}" /feeder/host '"0.0.0.0"'),
+    $(printf "${_COCOF_ADD}" /feeder/secure ${_USE_SSL}),
     $(printf "${_COCOF_ADD}" /feeder/starttls ${ENABLE_STARTTLS}),
     $(printf "${_COCOF_ADD}" /feeder/authentication true)
     ]";
@@ -54,7 +55,7 @@ authlogExpireDays=30
 [wildduck.srs]
     enabled=true
     # SRS secret value. Must be the same as in the MX side
-    secret=\"${SRS_SECRET}\"
+    secret=\"${_SRS_SECRET}\"
     rewriteDomain=\"${MAIL_DOMAIN}\"
 [wildduck.dkim]
 # @include \"${WILDDUCK_CONFIG_DIR}/dkim.toml\"
