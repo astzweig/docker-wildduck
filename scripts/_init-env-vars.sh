@@ -1,5 +1,21 @@
 #!/bin/sh
 
+_persist_secret_variables () {
+    local _VAR_DEF _VAR_VALUE _VAR_NAME _SECRET_FILE;
+    _create_dir_if_empty "${SECRETS_DIR}";
+    for _VAR_DEF in $(printenv); do
+        _VAR_NAME="$(echo "${_VAR_DEF}" | sed -e 's,\([^=]*\)=.*,\1,')";
+        _VAR_VALUE="$(echo "${_VAR_DEF}" | sed -e 's,[^=]*=\(.*\),\1,')";
+        if [ "$(expr "${_VAR_NAME}" : '.\+_SECRET$')" -gt 0 ]; then
+            # It seems to be a '_SECRET' variable. Persist it.
+            _SECRET_FILE="${SECRETS_DIR}/${_VAR_NAME}";
+            _VAR_VALUE="$(cat "${_SECRET_FILE}" 2> /dev/null || \
+                echo "${_VAR_VALUE}")";
+            echo "${_VAR_VALUE}" > "${_SECRET_FILE}";
+        fi
+    done
+}
+
 init_runtime_env_variables () {
     # Initialize environment variables. Variables prefixed with an
     # underscore are 'calculated' variables. That means their value is
@@ -83,6 +99,7 @@ init_runtime_env_variables () {
     export HARAKA_CONFIG_DIR="${CONFIG_DIR}/haraka";
     export ZONEMTA_CONFIG_DIR="${CONFIG_DIR}/zonemta";
     export CLAMD_DATABSE_DIR="${CONFIG_DIR}/clamdb";
+    export SECRETS_DIR="${CONFIG_DIR}/secrets";
 
 
     # === IMAP ===
@@ -111,4 +128,6 @@ init_runtime_env_variables () {
     export _DKIM_SECRET="$(_get_random_string)";
     export _SMTP_PORT='587';
     [ "${_USE_SSL}" = 'true' ] && export SMTP_PORT='465';
+
+    _persist_secret_variables;
 }
