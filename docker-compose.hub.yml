@@ -1,0 +1,65 @@
+version: "3"
+services:
+    mail:
+        image: astzweig/wildduck
+        ports:
+            - "25:25"
+            - "5438:443"
+            - "465:465"
+            - "993:993"
+        networks:
+            - backend
+            - frontend
+        volumes:
+            - ./ssl/certs/archive/example.com/fullchain1.pem:/etc/tls-keys/pub.pem:ro
+            - ./ssl/certs/archive/example.com/privkey1.pem:/etc/tls-keys/prv.pem:ro
+            - mailconfig:/etc/nodemailer
+        depends_on:
+            - redis
+            - mongo
+        environment:
+            - FQDN=mailserver1.example.com
+            - MAIL_DOMAIN=example.com
+            - TLS_KEY=/etc/tls-keys/prv.pem      # If you want to activate SSL for the mail services
+            - TLS_CERT=/etc/tls-keys/pub.pem    # you will need to provide these two variables.
+            - API_USE_HTTPS=true
+            - API_URL=https://mailserver1.astzweig.de:5438
+            - API_TOKEN=PLEASE_REPLACE_THIS
+
+# Uncomment the following lines, if you want a letsencrypt certificate and
+# your DNS provider is supported by the python lexicon dns tool.
+# See github.com/astzweig/docker-letsencrypt for more information on this.
+#
+#    ssl:
+#        image: astzweig/letsencrypt
+#        volumes:
+#            - ./ssl/certs:/etc/letsencrypt
+#        environment:
+#            - EMAIL=your-email-for-letsencrypt
+#            - PROVIDER=cloudflare
+#            - PROVIDER_DNS_DELAY=18
+#            - LEXICON_CLOUDFLARE_USERNAME=easyname-kontakt@astzweig.de
+#            - LEXICON_CLOUDFLARE_TOKEN=#2UBv2y*9#T#p#%8!^Y58hBHOp*gvt
+#            - DOMAINS=example.com,*.example.com
+
+    redis:
+        image: redis:alpine
+        volumes:
+            - redis_backup:/data
+        networks:
+            - backend
+    
+    mongo:
+        image: mongo
+        volumes:
+            - mongodbs:/data/db
+        networks:
+            - backend
+
+networks:
+    backend:
+    frontend:
+volumes:
+    mailconfig
+    redis_backup
+    mongodbs

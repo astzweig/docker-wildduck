@@ -6,3 +6,4 @@ CHANGELOG
 
 # Docker compose file
 docker-compose.yml
+docker-compose.hub.yml
