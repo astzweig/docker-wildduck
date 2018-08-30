@@ -99,6 +99,7 @@ init_runtime_env_variables () {
     export HARAKA_CONFIG_DIR="${CONFIG_DIR}/haraka";
     export ZONEMTA_CONFIG_DIR="${CONFIG_DIR}/zonemta";
     export CLAMD_DATABSE_DIR="${CONFIG_DIR}/clamdb";
+    export DKIM_KEYS_DIR="${CONFIG_DIR}/dkim";
     export SECRETS_DIR="${CONFIG_DIR}/secrets";
 
 

@@ -1,0 +1,98 @@
+#!/bin/sh
+
+source "${SCRIPTS_DIR}/_utils.sh";
+source "${SCRIPTS_DIR}/_init-env-vars.sh";
+init_runtime_env_variables;
+
+
+_generate_dkim_key () {
+    local _DOMAIN="${1}" _DKIM_SELECTOR _DKIM_PRVK_FILENAME;
+    local _DKIN_PUBK_FILENAME _DKIM_EXISTS;
+    _create_dir_if_empty "${DKIM_KEYS_DIR}";
+
+    _DKIM_EXISTS="$(ls -l "${DKIM_KEYS_DIR}"/${_DOMAIN}* \
+        2> /dev/null | wc -l)";
+
+    cd "${DKIM_KEYS_DIR}";
+    if [ "${_DKIM_EXISTS}" -eq 0 ]; then
+        _DKIM_SELECTOR="$(node -e 'console.log(Date()
+            .toString()
+            .substr(4, 3)
+            .toLowerCase() +
+            new Date().getFullYear())'
+        )";
+
+        _DKIM_PRVK_FILENAME="${DOMAIN}_${_DKIM_SELECTOR}_dkim.pem";
+        _DKIM_PUBK_FILENAME="${DOMAIN}_${_DKIM_SELECTOR}_dkim.cert";
+
+        openssl genrsa -out "${_DKIM_PRVK_FILENAME}" 2048;
+        chmod 400 "${_DKIM_PRVK_FILENAME}";
+        openssl rsa \
+            -in "${_DKIM_PRVK_FILENAME}" \
+            -out "${_DKIM_PUBK_FILENAME}" \
+            -pubout;
+        link_dkim_keys;
+    fi
+    _add_to_db;
+}
+
+
+_add_to_db () {
+    local _DOMAIN="${DOMAIN}" _PUB _DKIM_SELECTOR;
+    local _DKIN_PUBK_FILENAME _DKIM_DNS _PUBK_VALUE _DKIM_JSON;
+    local AUTH_HEADER;
+    [ -n "${API_TOKEN_SECRET}" ] && \
+        AUTH_HEADER="X-Access-Token: ${API_TOKEN_SECRET}";
+
+    cd "${DKIM_KEYS_DIR}";
+    # ATTENTION: Changing the path expression in the for loop will
+    # render the regular expressions in the loop body useless.
+    # Keep that in mind if you have to change it.
+    for _PUB in *; do
+        if [ "$(expr "${_PUB}" : "${_DOMAIN}_.*")" -gt 0 ]; then
+            _DKIM_SELECTOR="$(echo "${_PUB}" | \
+                sed -e 's,[^_]*_\([^_]*\)_[^_]*,\1,')";
+            _DKIM_PUBK_FILENAME="${_PUB}";
+            _DKIM_PRVK_FILENAME="$(echo "${_PUB}" | sed -e 's,\(.*\)\.cert,\1.pem,')";
+            break;
+        fi
+    done
+    [ -z "${_DKIM_SELECTOR}" ] && return 1;
+
+    _PUBK_VALUE="$(grep -v -e '^-' "${_DKIM_PUBK_FILENAME}" | tr -d "\n")";
+    _DKIM_DNS="v=DKIM1;k=rsa;p=${_PUBK_VALUE}";
+    _DKIM_JSON="$(DOMAIN="${_DOMAIN}" \
+        SELECTOR="${_DKIM_SELECTOR}" \
+        KEYSDIR="${DKIM_KEYS_DIR}" \
+        KEYNAME="${_DKIM_PRVK_FILENAME}" \
+        node -e 'console.log(JSON.stringify({
+            domain: process.env.DOMAIN,
+            selector: process.env.SELECTOR,
+            description: "Default DKIM key for "+process.env.DOMAIN,
+            privateKey: fs.readFileSync(
+                process.env.KEYSDIR + "/" + process.env.KEYNAME,
+                "UTF-8"
+            )
+        }))'
+    )";
+
+    curl -i -XPOST ${API_URL}/dkim \
+    --output /dev/null \
+    --silent \
+    -H 'Content-type: application/json' \
+    -H "${AUTH_HEADER}" \
+    -d "${_DKIM_JSON}";
+
+    if [ $? -eq 0 ]; then
+        echo "Please add the following TXT record to your DNS:
+${_DKIM_SELECTOR}._domainkey.${_DOMAIN}. IN TXT \"${_DKIM_DNS}\"
+";
+    fi
+}
+
+
+DOMAIN="${1}";
+if [ -z "${DOMAIN}" ]; then
+    read -p 'For which domain shall the DKIM key be generated? ' DOMAIN;
+fi
+_generate_dkim_key "${DOMAIN}";

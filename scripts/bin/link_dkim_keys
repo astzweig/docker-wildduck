@@ -1,0 +1,18 @@
+#!/bin/sh
+
+source "${SCRIPTS_DIR}/00-define_variables.sh";
+source "${SCRIPTS_DIR}/_utils.sh";
+source "${SCRIPTS_DIR}/_init-env-vars.sh";
+init_runtime_env_variables;
+
+link_dkim_keys () {
+    local _PUB;
+    cd "${DKIM_KEYS_DIR}";
+    rm "${ZONEMTA_INSTALL_DIR}/keys"/*;
+    for _PUB in $(pwd)/*; do
+        ln -s "${_PUB}" "${ZONEMTA_INSTALL_DIR}/keys";
+    done
+
+}
+
+link_dkim_keys;

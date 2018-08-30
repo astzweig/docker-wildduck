@@ -7,6 +7,7 @@ source "${SCRIPTS_DIR}/_wildduck.sh";
 source "${SCRIPTS_DIR}/_haraka.sh";
 source "${SCRIPTS_DIR}/_zonemta.sh";
 source "${SCRIPTS_DIR}/_antispam.sh";
+source "${SCRIPTS_DIR}/_dkim.sh";
 
 main () {
     # === Configure ===
@@ -15,6 +16,7 @@ main () {
     configure_haraka;
     configure_zonemta;
     configure_antispam;
+    link_dkim_keys;
 
     # === Start ===
     start_antispam;
@@ -27,6 +29,8 @@ main () {
 
     start_zonemta &
     local ZONEMTA_PID=$!;
+
+    add_dkim_for_mail_domain;
 
     wait $WILDDUCK_PID;
     wait $HARAKA_PID;
