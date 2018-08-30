@@ -37,5 +37,7 @@ COPY ./scripts/bin /usr/local/bin
 RUN chmod +x ${SCRIPTS_DIR}/entrypoint.sh; \
     chmod +x /usr/local/bin/*;
 
+VOLUME ["/etc/nodemailer"]
+
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ${SCRIPTS_DIR}/entrypoint.sh
