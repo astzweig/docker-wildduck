@@ -172,8 +172,8 @@ in the container. They change only the build time behaviour.
   [Wildduck][github-wildduck] project.
 * [x] Provide scripts to configure the docker container using environment
   variables.
-* [] Create different users for the different services in the container.
-* [] Create better management tools, like a CLI user management tool.
+* [ ] Create different users for the different services in the container.
+* [ ] Create better management tools, like a CLI user management tool.
 
 ## Alternatives
 Before starting to build this image we looked around for alternatives
