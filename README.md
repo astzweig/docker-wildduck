@@ -166,11 +166,13 @@ in the container. They change only the build time behaviour.
   each component in a single BUILD script.
 
 ## Roadmap
-* Provide a docker container with the pre-installed services as done by
+* [x] Provide a docker container with the pre-installed services as done by
   the [setup scripts][setup-scripts] provided by the
   [Wildduck][github-wildduck] project.
-* Provide scripts to configure the docker container using environment
+* [x] Provide scripts to configure the docker container using environment
   variables.
+* [] Create different users for the different services in the container.
+* [] Create better management tools, like a CLI user management tool.
 
 ## Alternatives
 Before starting to build this image we looked around for alternatives
