@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
-## [Unreleased]
+## [1.0.0] - 2018-08-31
 ### New
+- The docker container contains a fully fledged email system based on
+  modern technology.
+- System is configurable using environment variables and API.
 - Add a cute logo for the project (Huge thanks to the noun project at
   this place).
 - License the project under the european union public license. See
