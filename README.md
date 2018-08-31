@@ -7,7 +7,74 @@ service.
 _This project is part of the [Astzweig][astzweig] social responsibility
 program._
 
-## Environment Variables
+# Table of contents
+
+* [Usage](#user-content-usage)
+  - [From source](#user-content-from-source)
+  - [From Docker Hub](#user-content-from-docker-hub)
+* [Environment variables](#user-content-environment-variables)
+  - [General](#user-content-general)
+  - [Wildduck API](#user-content-wildduck-api)
+  - [API configuration profile](#user-content-api-configuration-profile)
+  - [Wildduck IMAP](#user-content-wildduck-imap)
+  - [Build Args](#user-content-build-args)
+  - [Build Args](#user-content-build-args)
+* [Development decisions](#user-content-development-decisions)
+* [Roadmap](#user-content-roadmap)
+* [Alternatives](#user-content-alternatives)
+* [License](#user-content-license)
+
+
+## Usage
+There are multiple ways to run this container and even more for
+experienced users. For the impatience user we have some example
+configurations prepared:
+
+* [From source](#user-content-from-source)
+* [From Docker Hub](#user-content-from-docker-hub)
+
+Both ways will result in a fully functional mailserver that - depending
+on your configuration - will either listen on IMAP port (143) and
+submission port (587) or if SSL is enabled and you provid valid keys
+will listen on IMAPS port (993) and SMTPS port (465).
+
+### From source
+Checkout this repository on the computer/server, change into the
+cloned repository folder and edit [docker-compose.yml][compose1-in-repo]
+as you wish.
+
+```bash
+$ git clone https://github.com/astzweig/docker-wildduck.git
+$ cd docker-wildduck
+$ vi docker-compose.yml
+```
+
+You should at least replace the values of the variables in that file.
+Afterwards you can just run:
+
+```bash
+$ docker-compose up -d mail
+```
+
+### From Docker Hub
+Copy the contents of the provided [docker-compose.yml][compose2-in-repo]
+file with eiter `curl` or `wget` anywhere on your server:
+
+```bash
+$ curl -o 'docker-compose.yml' https://raw.githubusercontent.com/astzweig/docker-wildduck/master/docker-compose.hub.yml
+
+ - or -
+
+$ wget -O 'docker-compose.yml' https://raw.githubusercontent.com/astzweig/docker-wildduck/master/docker-compose.hub.yml
+```
+
+Afterwards you can just run:
+
+```bash
+$ docker-compose up -d mail
+```
+
+## Environment variables
 The following tables shows a complete list of variables that you can
 use to modify the container's build or runtime behaviour. A bold font
 means you will have to provide a value in order for the container to
@@ -76,7 +143,7 @@ in the container. They change only the build time behaviour.
 | ZONEMTA_WD_PLUGIN_GIT_REPO | The git repository URL of the [Wildduck plugin][github-zonemta-wd-plugin] for [ZoneMTA][github-zonemta] (or your fork of it). Default: 'https://github.com/nodemailer/zonemta-wildduck.git' |
 | ZONEMTA_WD_PLUGIN_GIT_CID | The git commit ID or branch name you want to checkout of the Wildduck plugin for ZoneMTA git repository. Default: 'master' |
 
-## Development Decisions
+## Development decisions
 - We will use shell scripts to run commands instead of writing
   everything in the Dockerfile. We want the build-stage scripts to form
   a sequence and thus we define a script naming scheme that contains an
@@ -98,14 +165,14 @@ in the container. They change only the build time behaviour.
   use of Docker image layer caching we implement the install step of
   each component in a single BUILD script.
 
-# Roadmap
+## Roadmap
 * Provide a docker container with the pre-installed services as done by
   the [setup scripts][setup-scripts] provided by the
   [Wildduck][github-wildduck] project.
 * Provide scripts to configure the docker container using environment
   variables.
 
-# Alternatives
+## Alternatives
 Before starting to build this image we looked around for alternatives
 and found [houlagins][dockerhub-houlagins]'s and
 [hechengjin][dockerhub-hechengjin]'s containers. We still decided to go
@@ -113,7 +180,7 @@ for our own solution, as neither of them provides their build files or
 a corresponding code repository. And - for some maybe less important -
 neither does any of them provide a useful documentation.
 
-# License
+## License
 * Licensed under the [EUPL][eupl].
 * Logo: [Duck by Milky - Digital innovation from the Noun Project][duck-logo].
 
@@ -121,6 +188,8 @@ neither does any of them provide a useful documentation.
 [svg-duck-logo]: https://raw.githubusercontent.com/astzweig/docker-wildduck/master/duck-logo.svg?sanitize=true
 [github-wildduck]: https://github.com/nodemailer/wildduck
 [astzweig]: https://astzweig.de/ges-ver
+[compose1-in-repo]: https://raw.githubusercontent.com/astzweig/docker-wildduck/master/docker-compose.yml
+[compose2-in-repo]: https://raw.githubusercontent.com/astzweig/docker-wildduck/master/docker-compose.hub.yml
 [fqdn]: https://easyengine.io/tutorials/mail/fqdn-reverse-dns-ptr-mx-record-checks
 [apple-profile]: https://developer.apple.com/business/documentation/Configuration-Profile-Reference.pdf
 [wildduck_webmail_demo]: https://webmail.wildduck.email
