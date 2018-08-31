@@ -129,6 +129,7 @@ used, to configure the metadata of those configuration profiles.
 ### Build ARGS
 These variables can be used to define the service versions that are used
 in the container. They change only the build time behaviour.
+
 | Name | Meaning |
 | ---  | --- |
 | SCRIPTS_DIR | Path where the scripts folder is uploaded inside the container. Default: '/root/scripts' |
