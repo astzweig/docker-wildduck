@@ -46,14 +46,14 @@ services:
     redis:
         image: redis:alpine
         volumes:
-            - redis_backup:/data
+            - ./redis_backup:/data
         networks:
             - backend
     
     mongo:
         image: mongo
         volumes:
-            - mongodbs:/data/db
+            - ./mongodbs:/data/db
         networks:
             - backend
 
@@ -61,6 +61,6 @@ networks:
     backend:
     frontend:
 volumes:
-    mailconfig
-    redis_backup
-    mongodbs
+    mailconfig:
+    redis_backup:
+    mongodbs:
