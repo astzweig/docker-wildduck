@@ -13,16 +13,16 @@ ENV INSTALL_DIR ${INSTALL_DIR}
 ENV SCRIPTS_DIR ${SCRIPTS_DIR}
 
 ARG WILDDUCK_GIT_REPO=https://github.com/nodemailer/wildduck.git
-ARG WILDDUCK_GIT_CID=master
+ARG WILDDUCK_GIT_CID=bda1cbd878e5c02dabea54886059e1fd54514054
 
 ARG HARAKA_VERSION=2.8.21
 ARG HARAKA_WD_PLUGIN_GIT_REPO=https://github.com/nodemailer/haraka-plugin-wildduck.git
-ARG HARAKA_WD_PLUGIN_GIT_CID=master
+ARG HARAKA_WD_PLUGIN_GIT_CID=99cfee567c481ad5aadab76d26282b1517ee64d0
 
 ARG ZONEMTA_GIT_REPO=https://github.com/zone-eu/zone-mta-template.git
-ARG ZONEMTA_GIT_CID=master
+ARG ZONEMTA_GIT_CID=9f0391e7c736061f34dc25ff9442d82a26d9fad4
 ARG ZONEMTA_WD_PLUGIN_GIT_REPO=https://github.com/nodemailer/zonemta-wildduck.git
-ARG ZONEMTA_WD_PLUGIN_GIT_CID=master
+ARG ZONEMTA_WD_PLUGIN_GIT_CID=c5667b34a2bbb71811967135d1f7ac459d2063bb
 
 COPY ./scripts/[0-9][0-9]-*.sh ${SCRIPTS_DIR}/
 # Scripts are named like: {ORDER PREFIX}-{NAME}.sh.
