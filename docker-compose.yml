@@ -61,6 +61,6 @@ networks:
     backend:
     frontend:
 volumes:
-    mailconfig
-    redis_backup
-    mongodbs
+    mailconfig:
+    redis_backup:
+    mongodbs:
