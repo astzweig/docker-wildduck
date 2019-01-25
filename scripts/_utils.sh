@@ -30,10 +30,9 @@ _check_value () {
     local DEFAULT_VALUE="${3}";
     local ACTION="${4}";
     eval "local VAR_VALUE=\"\${${VAR_NAME}}\"";
-    local STR_VAR_VALUE=" ${VAR_VALUE}";
 
     # If pattern does not match expr returns 0 matched characters
-    if [ "$(expr match "${STR_VAR_VALUE}" " ${PATTERN}")" -eq 0 ]; then
+    if [ "$(expr match "${VAR_VALUE}" "${PATTERN}")" -eq 0 ]; then
         if [ "${ACTION}" = "warn" ] ||
            [ -z "${ACTION}" -a "$(expr length "${VAR_VALUE}")" -gt 0 ]; then
             echo 'You have supplied an invalid value for ' \
