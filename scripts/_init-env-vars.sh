@@ -61,7 +61,7 @@ init_runtime_env_variables () {
     # === API ===
     local PROTO='http';
     _check_value 'API_ENABLE' 'true\|false' 'true';
-    _check_value 'API_USE_HTTPS' 'true\|false' 'true';
+    _check_value 'API_USE_HTTPS' 'true\|false' 'false';
     _check_value 'API_TOKEN_SECRET' '.\+' '';
 
     export _API_ACCESS_CONTROL_ENABLE='false';
