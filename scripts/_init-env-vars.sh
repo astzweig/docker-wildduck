@@ -90,19 +90,6 @@ init_runtime_env_variables () {
     _check_value 'CONFIGPROFILE_ACCOUNT_DESC' '.\+' '{email}';
 
 
-    # === dir vars ===
-    # These variables do not have an underscore prefix, though they are
-    # 'calculated'. This is to keep path variables consistent across
-    # the whole code base.
-    export CONFIG_DIR='/etc/nodemailer';
-    export WILDDUCK_CONFIG_DIR="${CONFIG_DIR}/wildduck";
-    export HARAKA_CONFIG_DIR="${CONFIG_DIR}/haraka";
-    export ZONEMTA_CONFIG_DIR="${CONFIG_DIR}/zonemta";
-    export CLAMD_DATABSE_DIR="${CONFIG_DIR}/clamdb";
-    export DKIM_KEYS_DIR="${CONFIG_DIR}/dkim";
-    export SECRETS_DIR="${CONFIG_DIR}/secrets";
-
-
     # === IMAP ===
     _check_value 'IMAP_PROCESSES' '[[:digit:]]\+$' '2';
     _check_value 'IMAP_RETENTION' '[[:digit:]]\+$' '4';

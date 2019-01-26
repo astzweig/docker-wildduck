@@ -24,6 +24,8 @@ install_wildduck () {
     cd "${WILDDUCK_INSTALL_DIR}";
     npm install --unsafe-perm --production;
 
+    mkdir -p "${WILDDUCK_CONFIG_DIR}";
+    mv "${WILDDUCK_INSTALL_DIR}/config" "${WILDDUCK_CONFIG_DIR}";
     return 0;
 }
 
@@ -41,6 +43,11 @@ install_haraka () {
 
     cd "${HARAKA_INSTALL_DIR}/plugins/wildduck";
     npm install --unsafe-perm --production;
+
+    mkdir -p "${HARAKA_CONFIG_DIR}";
+    mv "${HARAKA_INSTALL_DIR}/config" "${HARAKA_CONFIG_DIR}";
+    rm -r "${HARAKA_INSTALL_DIR}/config";
+    ln -s "${HARAKA_CONFIG_DIR}" "${HARAKA_INSTALL_DIR}/config";
     return 0;
 }
 
@@ -63,6 +70,10 @@ install_zonemta () {
     # Remove example plugins.
     rm -r "${ZONEMTA_INSTALL_DIR}/plugins"/*.js;
     rm -r "${ZONEMTA_INSTALL_DIR}"/config/plugins/example-*;
+
+    mkdir -p "${ZONEMTA_CONFIG_DIR}";
+    mv "${ZONEMTA_INSTALL_DIR}/config" "${ZONEMTA_CONFIG_DIR}";
+    rm -fr "${ZONEMTA_CONFIG_DIR}/plugins/dkim.toml";
     return 0;
 }
 

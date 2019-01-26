@@ -66,13 +66,9 @@ authlogExpireDays=30
 configure_zonemta () {
     # only configure ZoneMTA if the user has not mounted his own
     # configuration files at $ZONEMTA_CONFIG_DIR.
-    _create_dir_if_empty "${ZONEMTA_CONFIG_DIR}";
-    [ $? -ne 0 ] && return 1;
-
-    cp -r "${ZONEMTA_INSTALL_DIR}/config"/* "${ZONEMTA_CONFIG_DIR}";
+    [ "${USE_OWN_SETTINGS}" = 'true' ] && return 0;
 
     _zonemta_configure_interface;
-    rm -fr "${ZONEMTA_CONFIG_DIR}/plugins/dkim.toml";
     _zonemta_configure_dbs;
     _zonemta_configure_pools;
     _zonemta_configure_loop_breaker;

@@ -137,10 +137,8 @@ _wildduck_configure_tls () {
 configure_wildduck () {
     # only configure wildduck if the user has not mounted his own
     # configuration files at $WILDDUCK_CONFIG_DIR.
-    _create_dir_if_empty "${WILDDUCK_CONFIG_DIR}";
-    [ $? -ne 0 ] && return 1;
+    [ "${USE_OWN_SETTINGS}" = 'true' ] && return 0;
 
-    cp -r "${WILDDUCK_INSTALL_DIR}/config"/* "${WILDDUCK_CONFIG_DIR}";
     _wildduck_configure_default;
     _wildduck_configure_api;
     _wildduck_configure_dbs;

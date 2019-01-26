@@ -93,41 +93,22 @@ _haraka_configure_wildduck () {
 }
 
 
-_symlink_local_config_folder () {
-    rm -r "${HARAKA_INSTALL_DIR}/config";
-    ln -s "${HARAKA_CONFIG_DIR}" "${HARAKA_INSTALL_DIR}/config";
-}
-
 configure_haraka () {
     # Only configure Haraka if the user has not mounted his own
     # configuration files at $HARAKA_CONFIG_DIR.
-    #
+    [ "${USE_OWN_SETTINGS}" = 'true' ] && return 0;
+
     # Haraka is a bit different here: The folder at $HARAKA_INSTALL_DIR
     # does not actually contain the source of Haraka, but rather an
     # Haraka application. Therefor it's configuration folder must
     # remain in this 'application' folder.
     # That's why we must create a symlink to $HARAKA_CONFIG_DIR.
-    _create_dir_if_empty "${HARAKA_CONFIG_DIR}";
-    if [ $? -ne 0 ]; then
-        _symlink_local_config_folder;
-        return 1;
-    fi
-
-    cp -r "${HARAKA_INSTALL_DIR}/config"/* "${HARAKA_CONFIG_DIR}";
-    _symlink_local_config_folder;
-
     _haraka_configure_general;
     _haraka_configure_plugins_list;
     _haraka_configure_tls;
     _haraka_configure_rspamd;
     _haraka_configure_clamav;
     _haraka_configure_wildduck;
-
-    # Copy configuration files over to user mount, if available
-    _is_dir_empty "${HARAKA_CONFIG_DIR}";
-    if [ $? -eq 0 -a -d "${HARAKA_CONFIG_DIR}" ]; then
-        cp -r "${CONFIG_DIR}"/* "${HARAKA_CONFIG_DIR}";
-    fi
     return 0;
 }
 
