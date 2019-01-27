@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
+## [1.1.0] - 2019-01-27
+### New
+- Add USE_OWN_SETTINGS environment variables to enable users to prevent
+  the container to overwrite any value in any service configuration file.
+
+### Changed
+- The container will now write the environment variables into the the
+  different service configuration files on every start up.
+  If you provide your own configuraton files, use the new
+  USE_OWN_SETTINGS environment variable, to prevent that.
+
+### Fixed
+- Fixed error that would cause some of the user-set environment
+  variables to be reset to their default value because of an 'invalid'
+  value.
+- Set the default value of the API_USE_HTTPS environment variable to
+  true as stated in the [README][readme].
+
 ## [1.0.0] - 2018-08-31
 ### New
 - The docker container contains a fully fledged email system based on
