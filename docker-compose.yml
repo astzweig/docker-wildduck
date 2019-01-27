@@ -25,7 +25,7 @@ services:
             - TLS_CERT=/etc/tls-keys/pub.pem    # you will need to provide these two variables.
             - API_USE_HTTPS=true
             - API_URL=https://mailserver1.astzweig.de:5438
-            - API_TOKEN=PLEASE_REPLACE_THIS
+            - API_TOKEN_SECRET=PLEASE_REPLACE_THIS
 
 # Uncomment the following lines, if you want a letsencrypt certificate and
 # your DNS provider is supported by the python lexicon dns tool.
