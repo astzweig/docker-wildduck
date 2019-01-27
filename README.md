@@ -90,7 +90,7 @@ individually for each email account.
 | TLS_KEY | The in-container path to the private SSL key to use for all Wildduck services. If no value is provided, SSL (IMAPS, SMTPS, etc.) will be disabled. |
 | TLS_CERT | The path to the public full chain SSL key to use for all Wildduck services. |
 | REDIS_HOST | The connection URL of redis. Default: redis://redis:6379/8 |
-| MONGODB_HOST | The connection URL of mongodb. Default: mongodb://mongodb:27017/wildduck |
+| MONGODB_HOST | The connection URL of mongodb. Default: mongodb://mongo:27017/wildduck |
 | GRAYLOG_HOST_PORT | The hostname (or IP address) and port of the graylog server, e.g. graylog:12201. If set logging to graylog will be enabled. |
 | ENABLE_STARTTLS | Enable StartTTLS capability of the IMAP and SMTP Server. Default: false |
 | USE_OWN_SETTINGS | If set to true, the boot scripts will not overwrite any value in any configuration file of any of the mail services. This is useful if you supply all configuration files yourself. Default: false |

@@ -27,7 +27,7 @@ init_runtime_env_variables () {
     _check_value 'FQDN' "${_DOMAIN_REGEX}" 'exit';
     _check_value 'MAIL_DOMAIN' "${_DOMAIN_REGEX}" "${FQDN}";
     _check_value 'PRODUCT_NAME' '.\+' 'Wildduck Mail';
-    _check_value 'MONGODB_HOST' '.\+' 'mongodb://mongodb:27017/wildduck';
+    _check_value 'MONGODB_HOST' '.\+' 'mongodb://mongo:27017/wildduck';
 
     # === General: Redis ===
     _check_value 'REDIS_HOST' '.\+' 'redis://redis:6379/8';
