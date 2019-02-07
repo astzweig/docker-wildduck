@@ -30,7 +30,7 @@ _wildduck_configure_api () {
     $(printf "${_COCOF_ADD}" /enabled ${API_ENABLE}),
     $(printf "${_COCOF_ADD}" /port ${_API_PORT}),
     $(printf "${_COCOF_ADD}" /host "\"0.0.0.0\""),
-    $(printf "${_COCOF_ADD}" /secure ${_USE_SSL}),
+    $(printf "${_COCOF_ADD}" /secure ${API_USE_HTTPS}),
     $(printf "${_COCOF_ADD}" /accessToken "\"${API_TOKEN_SECRET}\""),
     $(printf "${_COCOF_ADD}" /accessControl/enabled ${_API_ACCESS_CONTROL_ENABLE}),
     $(printf "${_COCOF_ADD}" /accessControl/secret "\"${_API_ACCESS_CONTROL_SECRET}\""),

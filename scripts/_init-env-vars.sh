@@ -72,6 +72,8 @@ init_runtime_env_variables () {
     if [ "${API_USE_HTTPS}" = 'true' -a "${_USE_SSL}" = 'true' ]; then
         PROTO="${PROTO}s";
         export _API_PORT=443;
+    else
+        export API_USE_HTTPS='false';
     fi
 
     _check_value 'API_URL' '.\+' "${PROTO}://${FQDN}";

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
+## [Unreleased]
+### Fixed
+- Fix error that would cause the API to still use SSL if TLS keys were
+  given, even if API_USE_HTTPS was set to false.
+
 ## [1.1.1] - 2019-01-27
 ### Fixed
 - Fix an error that would cause the configuration files to be inside a
