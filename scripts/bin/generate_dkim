@@ -1,5 +1,6 @@
 #!/bin/sh
 
+source "${SCRIPTS_DIR}/00-define_variables.sh";
 source "${SCRIPTS_DIR}/_utils.sh";
 source "${SCRIPTS_DIR}/_init-env-vars.sh";
 init_runtime_env_variables;
