@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+## [1.1.2] - 2019-05-10
+### Changed
+- Update software versions of complete mail server.
 ### Fixed
 - Fix error that would cause the API to still use SSL if TLS keys were
   given, even if API_USE_HTTPS was set to false.
+- Fix error that would prevent the generation of new DKIM keys.
 
 ## [1.1.1] - 2019-01-27
 ### Fixed
