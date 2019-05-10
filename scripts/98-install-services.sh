@@ -42,6 +42,7 @@ install_haraka () {
                     "${HARAKA_WD_PLUGIN_GIT_CID}";
 
     cd "${HARAKA_INSTALL_DIR}/plugins/wildduck";
+    cocof ./package.json '[{"op": "add", "path": "/dependencies/wildduck", "value": "file:'"${WILDDUCK_INSTALL_DIR}"'"}]';
     npm install --unsafe-perm --production;
 
     mkdir -p "${HARAKA_CONFIG_DIR}";
@@ -65,6 +66,7 @@ install_zonemta () {
     npm install --unsafe-perm --production;
 
     cd "${ZONEMTA_INSTALL_DIR}/plugins/wildduck";
+    cocof ./package.json '[{"op": "add", "path": "/dependencies/wildduck", "value": "file:'"${WILDDUCK_INSTALL_DIR}"'"}]';
     npm install --unsafe-perm --production;
 
     # Remove example plugins.
