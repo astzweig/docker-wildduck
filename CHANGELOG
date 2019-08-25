@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+### New
+- Add ENABLE_SMTP_SEND_LATER environment variable that allows enabling
+  or disabling the send later feature for messages with a future date
+  in the 'Date' header. If enabled, messages with a future date will be
+  send on that specified date in the future. The specified date may be
+  up to one year in the future and must be at least five minutes in the
+  future to be enqued. If the send later feature is disabled, all
+  messages will be send out immediately.
+
 ## [1.1.2] - 2019-05-10
 ### Changed
 - Update software versions of complete mail server.

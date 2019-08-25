@@ -108,7 +108,9 @@ init_runtime_env_variables () {
     # === Outbound SMTP ===
     export _OUTBOUND_SMTP_PORT=587;
     export _OUTBOUND_SMTP_SECRET="$(_get_random_string)";
+    export _OUTBOUND_SMTP_ALLOW_FUTURE_DATE='true';
     [ "${_USE_SSL}" = 'true' ] && export _OUTBOUND_SMTP_PORT=465;
+    [ "${ENABLE_SMTP_SEND_LATER}" = 'false' ] && export _OUTBOUND_SMTP_ALLOW_FUTURE_DATE='true';
 
 
     # === Misc ===

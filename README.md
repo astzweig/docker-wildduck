@@ -127,6 +127,11 @@ used, to configure the metadata of those configuration profiles.
 | IMAP_PROCESSES | The number of IMAP processes to start. Default: 2 |
 | IMAP_RETENTION | The amount of days after which messages in Trash or Junk folder shall be deleted automatically. Default: 4 |
 
+### Wildduck Outbound SMTP
+| Name | Meaning |
+| --- | --- |
+| ENABLE_SMTP_SEND_LATER | Allow messages with a future date in the `Date` header to be send later. If set to false, incoming messages will be send out immediately regardless of the future date set in the `Date` header. Default: true |
+
 ### Build ARGS
 These variables can be used to define the service versions that are used
 in the container. They change only the build time behaviour.

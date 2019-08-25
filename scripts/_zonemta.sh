@@ -46,6 +46,19 @@ _zonemta_configure_loop_breaker () {
 }
 
 
+_zonemta_configure_default_headers () {
+    local COMS FPATH
+    FPATH="${ZONEMTA_CONFIG_DIR}/plugins/default-headers.toml";
+
+    COMS="[
+    $(printf "${_COCOF_ADD}" '/futureDate' \
+        "\"${_OUTBOUND_SMTP_ALLOW_FUTURE_DATE}\"")
+    ]";
+
+    cocof "${FPATH}" "${COMS}";
+}
+
+
 _zonemta_configure_wildduck () {
     echo "[wildduck]
 enabled=[\"receiver\", \"sender\"]
@@ -72,6 +85,7 @@ configure_zonemta () {
     _zonemta_configure_dbs;
     _zonemta_configure_pools;
     _zonemta_configure_loop_breaker;
+    _zonemta_configure_default_headers;
     _zonemta_configure_wildduck;
     return 0;
 }
