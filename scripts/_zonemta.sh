@@ -50,9 +50,11 @@ _zonemta_configure_default_headers () {
     local COMS FPATH
     FPATH="${ZONEMTA_CONFIG_DIR}/plugins/default-headers.toml";
 
+    # According to Json Pointer RFC 6901 a slash must be encoded as
+    # '~1'.
     COMS="[
-    $(printf "${_COCOF_ADD}" '/futureDate' \
-        "\"${_OUTBOUND_SMTP_ALLOW_FUTURE_DATE}\"")
+    $(printf "${_COCOF_ADD}" '/core~1default-headers/futureDate' \
+        "${_OUTBOUND_SMTP_ALLOW_FUTURE_DATE}")
     ]";
 
     cocof "${FPATH}" "${COMS}";

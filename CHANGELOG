@@ -5,6 +5,36 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+## [1.2.2] - 2019-08-25
+### Fixed
+- Fix error that causes an invalid configuration key to be modified in
+  order to endable or disable ENABLE_SMTP_SEND_LATER.
+
+## [1.2.1] - 2019-08-25
+### New
+- Add ENABLE_SMTP_SEND_LATER environment variable that allows enabling
+  or disabling the send later feature for messages with a future date
+  in the 'Date' header. If enabled, messages with a future date will be
+  send on that specified date in the future. The specified date may be
+  up to one year in the future and must be at least five minutes in the
+  future to be enqued. If the send later feature is disabled, all
+  messages will be send out immediately.
+### Changed
+- Update software versions of complete mail server.
+- All IMAP and SMTP plugins link to the checked out instance of wildduck
+  instead of to the npm version. If you want to use your own wildduck
+  instance, all plugins will do so too.
+
+## [1.1.2] - 2019-05-10
+### Changed
+- Update software versions of complete mail server.
+### Fixed
+- Fix error that would cause the API to still use SSL if TLS keys were
+  given, even if API_USE_HTTPS was set to false.
+- Fix error that would prevent the generation of new DKIM keys.
+
+## [1.1.1] - 2019-01-27
+### Fixed
 ## [1.2.1] - 2019-08-25
 ### New
 - Add ENABLE_SMTP_SEND_LATER environment variable that allows enabling
