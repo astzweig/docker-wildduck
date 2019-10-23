@@ -1,6 +1,6 @@
 FROM alpine:latest as builder
 LABEL org.label-schema.vendor = "Astzweig UG(haftungsbeschränkt) & Co. KG"
-LABEL org.label-schema.version = "1.1.2"
+LABEL org.label-schema.version = "1.2.3"
 LABEL org.label-schema.description = "A docker container to run nodemailer/wildduck mailserver."
 LABEL org.label-schema.vcs-url = "https://github.com/astzweig/docker-wildduck"
 LABEL org.label-schema.schema-version = "1.0"
@@ -12,12 +12,12 @@ ARG SCRIPTS_DIR=/root/scripts
 ENV INSTALL_DIR ${INSTALL_DIR}
 ENV SCRIPTS_DIR ${SCRIPTS_DIR}
 
-ARG WILDDUCK_GIT_REPO=https://github.com/nodemailer/wildduck.git
-ARG WILDDUCK_GIT_CID=7fbf868b33b1857fedc38f5b4b7daf9b55294076
+ARG WILDDUCK_GIT_REPO=https://github.com/nodemail/wildduck.git
+ARG WILDDUCK_GIT_CID=4c1cd4210aca615e676eef766429c2bece5e18e3
 
-ARG HARAKA_VERSION=2.8.24
+ARG HARAKA_VERSION=2.8.25
 ARG HARAKA_WD_PLUGIN_GIT_REPO=https://github.com/nodemailer/haraka-plugin-wildduck.git
-ARG HARAKA_WD_PLUGIN_GIT_CID=9779844ff4e3901d62c583e62ae246ffea83d62a
+ARG HARAKA_WD_PLUGIN_GIT_CID=fc85b92f06764b1fbc872032c1dc6193d2d7f068
 
 ARG ZONEMTA_GIT_REPO=https://github.com/zone-eu/zone-mta-template.git
 ARG ZONEMTA_GIT_CID=f5e752e5a9f1ba22699c612cade133be58162ad6
