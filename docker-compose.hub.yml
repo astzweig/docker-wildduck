@@ -14,8 +14,6 @@ services:
             - backend
             - frontend
         volumes:
-            - ./ssl/certs/archive/example.com/fullchain1.pem:/etc/tls-keys/pub.pem:ro
-            - ./ssl/certs/archive/example.com/privkey1.pem:/etc/tls-keys/prv.pem:ro
             - mailconfig:/etc/nodemailer
         depends_on:
             - redis
@@ -23,8 +21,6 @@ services:
         environment:
             - FQDN=wildduck.encrypt0.com
             - MAIL_DOMAIN=encrypt0.com
-            - TLS_KEY=/etc/tls-keys/prv.pem      # If you want to activate SSL for the mail services
-            - TLS_CERT=/etc/tls-keys/pub.pem    # you will need to provide these two variables.
             - API_USE_HTTPS=true
             - API_URL=https://wildduck.encrypt0.com
             - API_TOKEN_SECRET=tLbL8vRwseBsZXQb
