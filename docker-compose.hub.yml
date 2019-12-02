@@ -3,13 +3,13 @@ services:
     mail:
         image: astzweig/wildduck
         deploy:
-        labels:
-            traefik.enable: "true"
-            traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 5438
-            traefik.http.routers.encrypt0_wildduck.tls: "true"
-            traefik.http.routers.encrypt0_wildduck.rule: Host(`wildduck.encrypt0.com`)
-            traefik.http.routers.encrypt0_wildduck.entrypoints: https
-            traefik.http.routers.encrypt0_wildduck.tls.certresolver: route53_resolver
+            labels:
+                traefik.enable: "true"
+                traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 5438
+                traefik.http.routers.encrypt0_wildduck.tls: "true"
+                traefik.http.routers.encrypt0_wildduck.rule: Host(`wildduck.encrypt0.com`)
+                traefik.http.routers.encrypt0_wildduck.entrypoints: https
+                traefik.http.routers.encrypt0_wildduck.tls.certresolver: route53_resolver
         networks:
             - backend
             - frontend
