@@ -2,11 +2,14 @@ version: "3"
 services:
     mail:
         image: astzweig/wildduck
-        ports:
-            - "25:25"
-            - "5438:443"
-            - "465:465"
-            - "993:993"
+        deploy:
+        labels:
+            traefik.enable: "true"
+            traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 5438
+            traefik.http.routers.encrypt0_wildduck.tls: "true"
+            traefik.http.routers.encrypt0_wildduck.rule: Host(`wildduck.encrypt0.com`)
+            traefik.http.routers.encrypt0_wildduck.entrypoints: https
+            traefik.http.routers.encrypt0_wildduck.tls.certresolver: route53_resolver
         networks:
             - backend
             - frontend
@@ -18,30 +21,13 @@ services:
             - redis
             - mongo
         environment:
-            - FQDN=mailserver1.example.com
-            - MAIL_DOMAIN=example.com
+            - FQDN=wildduck.encrypt0.com
+            - MAIL_DOMAIN=encrypt0.com
             - TLS_KEY=/etc/tls-keys/prv.pem      # If you want to activate SSL for the mail services
             - TLS_CERT=/etc/tls-keys/pub.pem    # you will need to provide these two variables.
             - API_USE_HTTPS=true
-            - API_URL=https://mailserver1.astzweig.de:5438
-            - API_TOKEN_SECRET=PLEASE_REPLACE_THIS
-
-# Uncomment the following lines, if you want a letsencrypt certificate and
-# your DNS provider is supported by the python lexicon dns tool.
-# See github.com/astzweig/docker-letsencrypt for more information on this.
-#
-#    ssl:
-#        image: astzweig/letsencrypt
-#        volumes:
-#            - ./ssl/certs:/etc/letsencrypt
-#        environment:
-#            - EMAIL=your-email-for-letsencrypt
-#            - PROVIDER=cloudflare
-#            - PROVIDER_DNS_DELAY=18
-#            - LEXICON_CLOUDFLARE_USERNAME=easyname-kontakt@astzweig.de
-#            - LEXICON_CLOUDFLARE_TOKEN=#2UBv2y*9#T#p#%8!^Y58hBHOp*gvt
-#            - DOMAINS=example.com,*.example.com
-
+            - API_URL=https://wildduck.encrypt0.com
+            - API_TOKEN_SECRET=tLbL8vRwseBsZXQb
     redis:
         image: redis:alpine
         volumes:
