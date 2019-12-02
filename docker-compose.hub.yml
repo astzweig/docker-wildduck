@@ -5,14 +5,19 @@ services:
         deploy:
             labels:
                 traefik.enable: "true"
-                traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 5438
+                traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 443
                 traefik.http.routers.encrypt0_wildduck.tls: "true"
                 traefik.http.routers.encrypt0_wildduck.rule: Host(`wildduck.encrypt0.com`)
                 traefik.http.routers.encrypt0_wildduck.entrypoints: https
                 traefik.http.routers.encrypt0_wildduck.tls.certresolver: route53_resolver
+        expose:
+            - 25
+            - 443
+            - 465
+            - 993
         networks:
             - backend
-            - frontend
+            - docker-Traefik_private
         volumes:
             - mailconfig:/etc/nodemailer
         depends_on:
@@ -40,7 +45,10 @@ services:
 
 networks:
     backend:
-    frontend:
+    docker-Traefik_private:
+        external: true
+    docker-Elk_logging:
+        external: true
 volumes:
     mailconfig:
     redis_backup:
