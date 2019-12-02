@@ -5,7 +5,7 @@ services:
         deploy:
             labels:
                 traefik.enable: "true"
-                traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 443
+                traefik.http.services.encrypt0_wildduck.loadbalancer.server.port: 80
                 traefik.http.routers.encrypt0_wildduck.tls: "true"
                 traefik.http.routers.encrypt0_wildduck.rule: Host(`wildduck.encrypt0.com`)
                 traefik.http.routers.encrypt0_wildduck.entrypoints: https
@@ -13,6 +13,7 @@ services:
         expose:
             - 25
             - 443
+            - 80
             - 465
             - 993
         networks:
