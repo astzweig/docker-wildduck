@@ -12,7 +12,7 @@ ARG SCRIPTS_DIR=/root/scripts
 ENV INSTALL_DIR ${INSTALL_DIR}
 ENV SCRIPTS_DIR ${SCRIPTS_DIR}
 
-ARG WILDDUCK_GIT_REPO=https://github.com/nodemail/wildduck.git
+ARG WILDDUCK_GIT_REPO=https://github.com/nodemailer/wildduck.git
 ARG WILDDUCK_GIT_CID=4c1cd4210aca615e676eef766429c2bece5e18e3
 
 ARG HARAKA_VERSION=2.8.25
