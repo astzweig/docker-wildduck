@@ -5,7 +5,9 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
-Everything as it should be :-)
+### New
+- Added a sponsoring button to the repository, as some nice people
+  want to show their appreciation this way.
 
 ## [1.2.5] - 2020-02-25
 ### Changed
