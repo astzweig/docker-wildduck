@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+Everything as it should be :-)
+
+## [1.2.5] - 2020-02-25
+### Changed
+- Update software version of wildduck and wildduck's haraka-plugin.
+
+## [1.2.4] - 2020-01-07
+### Fixed
+- Fixed a spelling error in the Dockerfile, causing the build process
+  to fail, as the reference was misspelled.
+
 ## [1.2.3] - 2019-10-23
 ### Changed
 - Update software version of wildduck and haraka.
