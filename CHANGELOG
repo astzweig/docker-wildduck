@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning][semver].
 ### New
 - Added a sponsoring button to the repository, as some nice people
   want to show their appreciation this way.
+### Changed
+- Update to newest version of Wildduck, ZoneMTA, Haraka and Wildduck's
+  Haraka-Plugin.
 
 ## [1.2.5] - 2020-02-25
 ### Changed
