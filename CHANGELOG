@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning][semver].
 ### Changed
 - Update to newest version of Wildduck, ZoneMTA, Haraka and Wildduck's
   Haraka-Plugin.
+- Update node to v14 as Wildduck makes use of optional chaining now.
 
 ## [1.2.5] - 2020-02-25
 ### Changed

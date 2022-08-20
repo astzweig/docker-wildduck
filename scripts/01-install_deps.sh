@@ -1,5 +1,4 @@
 #!/bin/sh
-apk add --no-cache nodejs;  # needed to run services.
 apk add --no-cache rspamd clamav;  # antispam tools.
 apk add --no-cache openssl;  # needed to generate dkim keys at runtime.
 apk add --no-cache curl;  # needed to run API requests.

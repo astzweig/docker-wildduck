@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-FROM alpine:latest as builder
+FROM node:14-alpine as builder
 LABEL org.label-schema.vendor = "Astzweig GmbH & Co. KG"
 LABEL org.label-schema.version = "1.2.5"
 LABEL org.label-schema.description = "A docker container to run nodemailer/wildduck mailserver."
