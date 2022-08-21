@@ -5,12 +5,16 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
+
+## [2.0.0] - 2022-08-21
 ### New
 - Added a sponsoring button to the repository, as some nice people
   want to show their appreciation this way.
+- Added GitHub Action to automatically deploy new releases to Docker Hub.
 ### Changed
 - Update to newest version of Wildduck, ZoneMTA, Haraka and Wildduck's
-  Haraka-Plugin.
+  Haraka-Plugin. Configuration has changed, make sure to update configuration
+  files accordingly.
 - Update node to v14 as Wildduck makes use of optional chaining now.
 
 ## [1.2.5] - 2020-02-25

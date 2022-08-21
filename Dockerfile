@@ -1,6 +1,6 @@
 FROM node:14-alpine as builder
 LABEL org.label-schema.vendor = "Astzweig GmbH & Co. KG"
-LABEL org.label-schema.version = "1.2.5"
+LABEL org.label-schema.version = "2.0.0"
 LABEL org.label-schema.description = "A docker container to run nodemailer/wildduck mailserver."
 LABEL org.label-schema.vcs-url = "https://github.com/astzweig/docker-wildduck"
 LABEL org.label-schema.schema-version = "1.0"
